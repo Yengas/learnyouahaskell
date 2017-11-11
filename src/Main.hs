@@ -7,7 +7,16 @@ import Functions
 import Records
 import BinaryTree
 import Data.Char
+import Randoms
+import System.Random
 import qualified Data.Map as Map
+
+-- Notes for ghci
+-- :info => shows info about the type and interfaces it implements
+-- :t    => shows the type of the value
+-- :k    => shows what kind of a type a type is. For example Int is a concrete type so :k on it will return Int :: *
+--          for Maybe however we require a type to make it concrete so it will be Maybe :: * -> *, also for either;
+--          Either :: * -> * -> *, Either String :: * -> *, Either String Int :: *
 
 main :: IO()
 -- |The FizzBuzz printing...
@@ -54,5 +63,15 @@ main :: IO()
 -- main = let x = insert 4 $ insert 9 $ insert 7 $ insert 3 $ singleton 5 in putStrLn $ show $ x where insert = flip treeInsert
 -- main = let tree = treeFromList [1,2,3,4] in putStrLn $ show $ tree
 -- main = let tree = treeFromList [1,5,3,7,4,8,2,9,6,0] in putStrLn $ "5 in tree: " ++ (show $ tree `treeElem` 5) ++  ", 10 in tree: " ++ (show $ tree `treeElem` 10)
+-- below doesnt obey the functor rules because binary tree changes how it behaves/holds data.
+-- it needs to be implemented in a way that will hold the data in an ordered manner, no matter which functions is
+-- passed to the functor.
+-- main = let tree = treeFromList [1,2,3] in putStrLn $ show $ fmap (\x -> 1 / x) tree
+
+-- |Random related stuff...
+-- main = mapM_ (putStrLn . show) $ takeFiveRandomWithSeed 73
+-- main = do
+--    stdGen <- getStdGen
+--    mapM_ (putStrLn . show) $ takeFiveRandomWithGenerator stdGen
 
 -- main = putStrLn "Hello, World!"

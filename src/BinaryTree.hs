@@ -20,4 +20,8 @@ treeElem (Node a left right) x
     | x > a  = right `treeElem` x
 
 treeFromList :: (Ord a) => [a] -> Tree a
-treeFromList list = foldr (flip treeInsert) EmptyTree list
+treeFromList list = foldl treeInsert EmptyTree list
+
+instance Functor Tree where
+    fmap _ EmptyTree = EmptyTree
+    fmap f (Node a left right) = Node (f a) (fmap f left) (fmap f right)
