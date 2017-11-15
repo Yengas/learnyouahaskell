@@ -9,6 +9,7 @@ import BinaryTree
 import Data.Char
 import Randoms
 import Functors
+import Monoid
 import System.Random
 import qualified Data.Map as Map
 
@@ -93,5 +94,13 @@ main :: IO()
 -- main = print $ zipListApplicativeExample
 -- main = print $ sequence' [Just 1, Just 2, Just 3]
 -- main = print $ conditionsSequenceExample 5
+
+-- | Monoid examples
+-- main = print $ foldTreeExample
+-- main = print $ monoidTestExample 5
+-- main = print $ foldrFactorial 7
+-- main = print $ treeToArrayExample
+-- main = print $ lengthCompare "yakutcan" "yiğit"
+
 
 -- main = putStrLn "Hello, World!"
