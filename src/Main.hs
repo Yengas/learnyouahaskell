@@ -8,6 +8,7 @@ import Records
 import BinaryTree
 import Data.Char
 import Randoms
+import Functors
 import System.Random
 import qualified Data.Map as Map
 
@@ -73,5 +74,24 @@ main :: IO()
 -- main = do
 --    stdGen <- getStdGen
 --    mapM_ (putStrLn . show) $ takeFiveRandomWithGenerator stdGen
+
+-- |Functors and Applicative Functors related stuff
+-- main = reverseIntersperseUpperLines
+-- main = reverseIntersperseUpperLinesOneLiner
+-- main = putStrLn $ show $ functionComposition 5
+-- main = print $ replicateExample
+-- main = print $ justApplicative (Just 5)
+-- main = print $ justMultipleApplicative (Just 5) (Just 8)
+-- main = print $ justMultipleApplicative (Nothing) (Just 8)
+-- main = print $ justApplicativeLifted (Just 5)
+-- main = print $ justApplicativeFunc (Just 5) (Just 6)
+-- main = print $ listApplicativeMultipleExample
+-- main = print $ listApplicativeMultipleTimesExample
+-- main = print $ listPossibleProductsExample [2, 5, 10] [8, 10, 11]
+-- main = ioApplicativeExample
+-- main = print $ functionCompositionAnswerToLife
+-- main = print $ zipListApplicativeExample
+-- main = print $ sequence' [Just 1, Just 2, Just 3]
+-- main = print $ conditionsSequenceExample 5
 
 -- main = putStrLn "Hello, World!"
