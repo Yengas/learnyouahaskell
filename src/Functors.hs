@@ -7,6 +7,7 @@ import Control.Applicative
 -- For functors the signature is;
 -- fmap :: (Functor f) => (a -> b) -> f a -> f b
 -- f <$> x = fmap f x
+-- also: (->) r is defined as fmap = (.)
 
 -- There are two rules for a functor.
 -- 1-) Applying a function to a functor, should have the same result with applying the function to the value inside the functor
@@ -74,6 +75,13 @@ ioApplicativeExample = join $ (return putStrLn) <*> ((++) <$> getLine <*> getLin
 
 -- This functions returns the answer to the universe
 -- you can think of this applicative functor as binding functions outputs to first function's parameters.
+--   f <*> g = \x -> f x (g x)
+-- this is what it exactly does. Since the type of the <*> is (Functor f) -> f (a -> b) -> f a -> f b
+-- for a function, below is fmap (f) g so it becomes \x y -> f (g x) y. The +1 is bind to the first parameter, but we
+-- still need to give it 2 parameters for the function to execute. When we use the applicative functor, the parameter count
+-- is decreased by one, because of the way it works. Now the function becomes for: (\x y -> f (g x) y) <*> q =>
+-- \x -> f (g x) (q x) the take away here is the parameter count is decreased only when we use the applicative functor.
+-- Another fmap would make this function \x -> f (g (w x)) (q (w x)) Try it out for yourself.
 functionCompositionAnswerToLife = (\x y -> (x + 1) * (y + 2)) <$> (+1) <*> (subtract 1) $ 5
 
 -- ZipList example for a list application factor that behaves like a zipWith
