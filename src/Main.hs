@@ -10,6 +10,7 @@ import Data.Char
 import Randoms
 import Functors
 import Monoid
+import Monad
 import System.Random
 import qualified Data.Map as Map
 
@@ -78,7 +79,7 @@ main :: IO()
 
 -- |Functors and Applicative Functors related stuff
 -- main = reverseIntersperseUpperLines
-main = reverseIntersperseUpperLinesOneLiner
+-- main = reverseIntersperseUpperLinesOneLiner
 -- main = putStrLn $ show $ functionComposition 5
 -- main = print $ replicateExample
 -- main = print $ justApplicative (Just 5)
@@ -95,12 +96,21 @@ main = reverseIntersperseUpperLinesOneLiner
 -- main = print $ sequence' [Just 1, Just 2, Just 3]
 -- main = print $ conditionsSequenceExample 5
 
--- | Monoid examples
+-- |Monoid examples
 -- main = print $ foldTreeExample
 -- main = print $ monoidTestExample 5
 -- main = print $ foldrFactorial 7
 -- main = print $ treeToArrayExample
 -- main = print $ lengthCompare "yakutcan" "yiğit"
 
+-- |Monad examples
+-- main = print $ addBirds (0, 0) [(L, 2), (L, 2), (R, 7), (R, 1), (L, 10)]
+-- main = print $ birdAddMonadExample
+-- main = ignoreResultPrintExample
+-- main = print $ doWithListMonadExample
+-- main = do
+--    print $ doWithMaybeMonadExample (Just (3, 4))
+--    print $ doWithMaybeMonadExample Nothing
+main = print $ lambdaScopeExample
 
 -- main = putStrLn "Hello, World!"

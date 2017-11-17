@@ -2,6 +2,11 @@ module Records where
 import qualified Data.Map as Map
 import Data.Char
 
+-- The difference between newtype, type, data
+-- type is used when aliasing an existing type with a different name, to make it sensible in your specific code.
+-- newtype is used when wrapping values into your newly created type. however, you can only have 1 possibility of type, and can wrap only 1 value.
+-- data is used when you are creating a whole new data type, that can have different number of values and types.
+
 data Person = Person {
     firstName :: String,
     lastName :: String
