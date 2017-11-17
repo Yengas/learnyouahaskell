@@ -22,6 +22,8 @@ reverseIntersperseUpperLines = do
     mapM_ putStrLn lines
 
 reverseIntersperseUpperLinesOneLiner = join $ fmap (mapM_ putStrLn . map (intersperse '-' . reverse . map toUpper) . lines) getContents
+-- or you could use monad features such as(think scala flatMap);
+-- reverseIntersperseUpperLinesOneLiner = (map (intersperse '-'. reverse . map toUpper) . lines) <$> getContents >>= (mapM_ putStrLn)
 
 functionComposition :: (Num a) => a -> a
 functionComposition = fmap (*5) (+3)
@@ -47,8 +49,6 @@ replicateExample = replicateCurried [1, 2, 3, 4]
 -- pure f <*> pure x = pure (f x)
 -- u <*> pure y = pure ($ y) <*> u
 
-
-
 -- creates a function that multiplies a number with 2 and adds 3 to it. wraps it in pure, then uses applicative functor
 -- property to map a Maybe variable over the function.
 justApplicative x = pure ((+3) . (*2)) <*> x
@@ -72,6 +72,7 @@ listPossibleProductsExample x y = (*) <$> x <*> y
 
 -- Concatenate two io string into one with applicative functors.
 ioApplicativeExample = join $ (return putStrLn) <*> ((++) <$> getLine <*> getLine)
+-- or you could use monad features such as(think scala flatMap); (++) <$> getLine <*> getLine >>= putStrLn
 
 -- This functions returns the answer to the universe
 -- you can think of this applicative functor as binding functions outputs to first function's parameters.

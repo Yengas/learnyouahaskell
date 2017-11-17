@@ -78,7 +78,7 @@ main :: IO()
 
 -- |Functors and Applicative Functors related stuff
 -- main = reverseIntersperseUpperLines
--- main = reverseIntersperseUpperLinesOneLiner
+main = reverseIntersperseUpperLinesOneLiner
 -- main = putStrLn $ show $ functionComposition 5
 -- main = print $ replicateExample
 -- main = print $ justApplicative (Just 5)
