@@ -76,6 +76,7 @@ main :: IO()
 -- main = do
 --    stdGen <- getStdGen
 --    mapM_ (putStrLn . show) $ takeFiveRandomWithGenerator stdGen
+main = print $ takeTenWithStateDry
 
 -- |Functors and Applicative Functors related stuff
 -- main = reverseIntersperseUpperLines
@@ -111,6 +112,12 @@ main :: IO()
 -- main = do
 --    print $ doWithMaybeMonadExample (Just (3, 4))
 --    print $ doWithMaybeMonadExample Nothing
-main = print $ lambdaScopeExample
+-- main = putStr "Do With Function: " >> (print $ doWithFunctionExample 5) >>
+--    putStr "Lambda  Function: " >> (print $ lambdaMonadFunctionExample 5)
+-- main = print $ lambdaScopeExample
+-- main = print $ moveKnight (6, 2)
+-- main = print $ (6,2) `canReachIn3` (6,1)
+-- main = print $ let cIn3 = canReachIn 3 in (6,2) `cIn3` (7,3)
+
 
 -- main = putStrLn "Hello, World!"

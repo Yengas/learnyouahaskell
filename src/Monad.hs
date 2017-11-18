@@ -12,7 +12,7 @@ import Control.Monad
 
 -- Monads have some properties that makes us possible to work with them.
 -- return :: (Monad m) => a -> m a
--- (>>=) :: (Monad m) => m a -> (a -> m b) -> m b
+-- (>>=) :: (Monad m) => m a -> (a -> m b) -> m b, a.k.a. bind
 -- (>>) :: (Monad m) => m a -> m b -> m b
 -- fail :: String -> m a, with the default definition of fail msg = error msg
 
@@ -32,8 +32,8 @@ data PoleSide = L | R deriving (Show, Read)
 
 isInvalid pole = let (left, right) = pole in (abs $ left - right) > 4
 leftAdd, rightAdd :: BirdCount -> Pole -> Maybe Pole
-leftAdd n (left, right)  = if isInvalid (left + n, right) then Nothing else Just (left + n, right)
-rightAdd n (left, right) = if isInvalid (left, right + n) then Nothing else Just (left, right + n)
+leftAdd n (left, right)  = let newPole = (left + n, right) in if isInvalid newPole then Nothing else Just newPole
+rightAdd n (left, right) = let newPole = (left, right + n) in if isInvalid newPole then Nothing else Just newPole
 
 addBird :: Pole -> (PoleSide, BirdCount) -> Maybe Pole
 addBird p (L, n) = leftAdd n p
@@ -57,8 +57,9 @@ ignoreResultPrintExample = putStr "Type " >> putStr "Something: " >> (\x -> "You
 -- mplus :: m a -> m a -> m a | defined for concatenation of multiple monads into one, Nothing x becomes Nothing etc.
 doWithListMonadExample = do
     -- list comprehensions are syntactic sugar for using lists as monads
-    -- <- just gets the value out of a functor value and makes it normal again. In case we work with Maybe, this function
-    -- would return Nothing in case the functor value had Nothing in it. This depends on the fail implementation of monad.
+    -- <- just gets the value out of a functor value and makes it normal(with pattern matching aswell) again.
+    -- In case we work with Maybe, this function would return Nothing in case the functor value had Nothing in it.
+    -- This depends on the fail implementation of monad.
     (c, r) <- [(x, y) | x <- [1..5], y <- [1..3], or [odd x, odd y]]
     -- you can also use guard from Control.Monad here. which has the type signature of: Bool -> f ()
     -- think of each of these do lines as one single continuous lambda function. each line has access to variables, defined
@@ -72,6 +73,48 @@ doWithMaybeMonadExample :: Maybe (Int, Int) -> Maybe Int
 doWithMaybeMonadExample m = do
     (x, y) <- m
     return (x + y)
+
+-- the bind(>>=) definition for functions is:
+-- h >>= f = \w -> f (h w) w
+-- which makes the definition of f as: a -> b -> c
+-- (+2) >>= (*) $ 5 == 35
+doWithFunctionExample = do
+    a <- (*2)
+    b <- (+10)
+    return (a + b)
+
+-- or could be written like this as well:
+lambdaMonadFunctionExample = (*2) >>= (\a -> (+10) >>= (\b -> return (a + b)))
+
+type KnightPos = (Int, Int)
+
+-- Relative moves of a knight, 8 possible move
+knightMoves = [x | x <- mapM (const [1,-1,-2,2]) [1..2], (sum $ map abs x) == 3]
+
+moveKnight :: KnightPos -> [KnightPos]
+moveKnight start = do
+    let (r, c) = start
+    -- foreach relative position, add to the start...
+    [nr, nc] <- zipWith (zipWith (+)) knightMoves $ repeat [r, c]
+    -- Control.Monad guard to check if we are in the board...
+    guard (nr `elem` [1..8] && nc `elem` [1..8])
+    return (nr, nc)
+
+-- Create a list of possible positions a knight can be in 3 steps, given a start position
+in3 start = return start >>= moveKnight >>= moveKnight >>= moveKnight
+
+-- Create a list of possible positions a knight can be, given a start position and number of steps
+knightPosIn :: Int -> KnightPos -> [KnightPos]
+-- using fold to go over a list with a binding function
+knightPosIn n start = foldl (>>=) (return start) (replicate n moveKnight)
+
+-- Check if a knight can reach a given position in 3 moves
+canReachIn3 :: KnightPos -> KnightPos -> Bool
+canReachIn3 start dest = dest `elem` in3 start
+
+-- Check if a knight can reach a given position in n moves
+canReachIn :: Int -> KnightPos -> KnightPos -> Bool
+canReachIn n start dest = dest `elem` (knightPosIn n start)
 
 -- this is essentially a >>= (\x -> b >>= g x)
 -- that is why the second lambda can access the first variable.
