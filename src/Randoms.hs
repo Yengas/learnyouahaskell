@@ -9,7 +9,6 @@ randoms' g = let (value, newGen) = random g in value : randoms' newGen
 takeFiveRandomWithSeed n = take 5 $ randoms' (mkStdGen n) :: [Int]
 takeFiveRandomWithGenerator g = take 5 $ randoms' g :: [Int]
 
-
 randomSt :: (RandomGen g, Random a) => State g a
 randomSt = state random
 

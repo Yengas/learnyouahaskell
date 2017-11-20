@@ -24,4 +24,5 @@ treeFromList list = foldl treeInsert EmptyTree list
 
 instance Functor Tree where
     fmap _ EmptyTree = EmptyTree
+    -- This implementation is not right, because it changes how the Tree behaves in case we map with 1/x etc.
     fmap f (Node a left right) = Node (f a) (fmap f left) (fmap f right)

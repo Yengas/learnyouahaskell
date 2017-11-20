@@ -13,6 +13,7 @@ import Monoid
 import Monad
 import Writer
 import Stack
+import ProbMonad
 import System.Random
 import qualified Data.Map as Map
 
@@ -130,5 +131,11 @@ main :: IO()
 -- |Stack examples with custom/standard monad state
 -- main = print $ customStateExample
 -- main = print $ customStateWithDoExample
+
+-- |Prob example for monads
+-- main = print $ negateExample
+-- main = print $ flattenExample
+-- main = print $ applicativeFunctorExample
+main = print $ combinePos flipThreeHeadsPossibility
 
 -- main = putStrLn "Hello, World!"
