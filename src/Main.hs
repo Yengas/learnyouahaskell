@@ -11,6 +11,8 @@ import Randoms
 import Functors
 import Monoid
 import Monad
+import Writer
+import Stack
 import System.Random
 import qualified Data.Map as Map
 
@@ -76,7 +78,7 @@ main :: IO()
 -- main = do
 --    stdGen <- getStdGen
 --    mapM_ (putStrLn . show) $ takeFiveRandomWithGenerator stdGen
-main = print $ takeTenWithStateDry
+-- main = print $ takeTenWithStateDry
 
 -- |Functors and Applicative Functors related stuff
 -- main = reverseIntersperseUpperLines
@@ -118,6 +120,15 @@ main = print $ takeTenWithStateDry
 -- main = print $ moveKnight (6, 2)
 -- main = print $ (6,2) `canReachIn3` (6,1)
 -- main = print $ let cIn3 = canReachIn 3 in (6,2) `cIn3` (7,3)
+-- main = print $ liftMExample
 
+-- |Writer examples
+-- main = print $ addDrinkExample
+-- main = multWithLogExample
+-- main = let (r, logs) = gcdExample in mapM_ putStrLn (logs ++ ["Result: " ++ (show r)])
+
+-- |Stack examples with custom/standard monad state
+-- main = print $ customStateExample
+-- main = print $ customStateWithDoExample
 
 -- main = putStrLn "Hello, World!"

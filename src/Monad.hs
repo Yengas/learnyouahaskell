@@ -12,7 +12,7 @@ import Control.Monad
 
 -- Monads have some properties that makes us possible to work with them.
 -- return :: (Monad m) => a -> m a
--- (>>=) :: (Monad m) => m a -> (a -> m b) -> m b, a.k.a. bind
+-- (>>=) :: (Monad m) => m a -> (a -> m b) -> m b, a.k.a. bind, m >>= f is same as join (fmap f m)
 -- (>>) :: (Monad m) => m a -> m b -> m b
 -- fail :: String -> m a, with the default definition of fail msg = error msg
 
@@ -119,3 +119,18 @@ canReachIn n start dest = dest `elem` (knightPosIn n start)
 -- this is essentially a >>= (\x -> b >>= g x)
 -- that is why the second lambda can access the first variable.
 lambdaScopeExample = Just 5 >>= \x -> Just 6 >>= \y -> return (x + y)
+
+-- Some useful functions with Monads
+-- liftM is the same with fmap however it works with Monad constraint, where fmap has a constraint on Functor
+-- liftM is there because Monad's dont require to be Functors
+liftMExample = (+5) `liftM` (Just 5)
+
+-- ap can be defined easier with monads, using the do notation:
+ap :: (Monad m) => m (a -> b) -> m a -> m b
+ap mf m = do
+  f <- mf
+  x <- m
+  return $ f x
+
+-- join :: (Monad m) => m (m a) -> m a
+-- this function is >>= id
